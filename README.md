@@ -1,10 +1,11 @@
 
 # Nix Haskell Monorepo Tutorial
 
-If you've got a haskell monorepo to manage, you've probably already thought a few times to yourself: Maan, wouldn't it be so much easier with Nix?
+If you've got a haskell monorepo to manage, you've probably already thought a few times to yourself: *"Maan, wouldn't it be so much easier with Nix?"*
+
 It actually wouldn't, but here's a tutorial anyway.
 
-1. pinned nixpkgs
+1. [pinned nixpkgs](./pinned-nixpkgs)
 2. monorepo nix derivations
 3. extra libs
 4. native libs
