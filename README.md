@@ -7,7 +7,7 @@ It actually wouldn't, but here's a tutorial anyway.
 
 1. [pinned nixpkgs](./pinned-nixpkgs)
 2. [monorepo nix expressions](./monorepo-nix-expressions)
-3. extra libs
+3. [extra deps](./extra-deps)
 4. native libs
 5. shell.nix
 6. code cleanup

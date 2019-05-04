@@ -84,6 +84,7 @@ Nixpkgs accepts a config argument that allows us to override packages in a funct
 We override `haskellPackages` to be the package set for `ghc844` but before assigning it we also modify the set by adding our own packages.
 
 ```nix
+# release.nix
 let
 
   nixpkgs = import (import ./pinned-nixpkgs.nix) { inherit config; };
