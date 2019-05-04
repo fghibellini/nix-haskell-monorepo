@@ -7,7 +7,7 @@ build-type:     Simple
 
 library
   exposed-modules:
-      Com.Lollipops.Colorant
+      Lollipops.Colorant
   hs-source-dirs:
       src
   default-extensions: OverloadedStrings NoImplicitPrelude TypeOperators DataKinds DeriveGeneric

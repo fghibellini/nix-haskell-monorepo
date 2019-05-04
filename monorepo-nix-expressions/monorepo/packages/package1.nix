@@ -3,7 +3,9 @@ mkDerivation {
   pname = "package1";
   version = "0.1.0.0";
   src = .././code/package1;
-  libraryHaskellDepends = [ aeson base package2 text ];
+  isLibrary = false;
+  isExecutable = true;
+  executableHaskellDepends = [ aeson base package2 text ];
   license = stdenv.lib.licenses.unfree;
   hydraPlatforms = stdenv.lib.platforms.none;
 }

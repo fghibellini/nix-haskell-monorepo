@@ -5,13 +5,10 @@ version:        0.1.0.0
 license:        AllRightsReserved
 build-type:     Simple
 
-library
-  exposed-modules:
-      Com.Lollipops.Sticks
-  other-modules:
-      Com.Lollipops.Sugar
+executable package1-exe
+  main-is: Main.hs
   hs-source-dirs:
-      src
+      exe
   default-extensions: OverloadedStrings NoImplicitPrelude TypeOperators DataKinds DeriveGeneric
   ghc-options: -Wall
   build-depends:
