@@ -13,7 +13,7 @@ It actually wouldn't, but here's a tutorial anyway.
 6. code cleanup
 7. setting up a hydra instance
 8. hydra project config
-9. nix tests
+9. [nix tests](./nix-tests)
 10. docker images
 11. developer ergonomy
     1. checking that caching works
