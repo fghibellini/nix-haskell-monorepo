@@ -10,15 +10,14 @@ It actually wouldn't, but here's a tutorial anyway.
 3. [extra deps](./extra-deps)
 4. [system deps](./system-deps)
 5. [shell.nix](./shell.nix)
-6. code cleanup
-7. setting up a hydra instance
-8. hydra project config
-9. [nix tests](./nix-tests)
-10. docker images
-11. developer ergonomy
+6. setting up a hydra instance
+7. hydra project config
+8. [nix tests](./nix-tests)
+9. [docker images](./docker)
+10. developer ergonomy
     1. checking that caching works
     2. prefetch-nixpkgs
-12. possible improvements
+11. possible improvements
 
 # Why?
 
