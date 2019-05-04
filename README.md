@@ -6,7 +6,7 @@ If you've got a haskell monorepo to manage, you've probably already thought a fe
 It actually wouldn't, but here's a tutorial anyway.
 
 1. [pinned nixpkgs](./pinned-nixpkgs)
-2. monorepo nix derivations
+2. [monorepo nix expressions](./monorepo-nix-expressions)
 3. extra libs
 4. native libs
 5. shell.nix

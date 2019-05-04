@@ -1,0 +1,19 @@
+cabal-version: 1.12
+
+name:           package2
+version:        0.2.0.0
+license:        AllRightsReserved
+build-type:     Simple
+
+library
+  exposed-modules:
+      Com.Lollipops.Colorant
+  hs-source-dirs:
+      src
+  default-extensions: OverloadedStrings NoImplicitPrelude TypeOperators DataKinds DeriveGeneric
+  ghc-options: -Wall
+  build-depends:
+      aeson
+    , base
+    , text
+  default-language: Haskell2010

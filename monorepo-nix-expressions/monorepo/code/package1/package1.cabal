@@ -1,0 +1,22 @@
+cabal-version: 1.12
+
+name:           package1
+version:        0.1.0.0
+license:        AllRightsReserved
+build-type:     Simple
+
+library
+  exposed-modules:
+      Com.Lollipops.Sticks
+  other-modules:
+      Com.Lollipops.Sugar
+  hs-source-dirs:
+      src
+  default-extensions: OverloadedStrings NoImplicitPrelude TypeOperators DataKinds DeriveGeneric
+  ghc-options: -Wall
+  build-depends:
+      aeson
+    , base
+    , text
+    , package2
+  default-language: Haskell2010
