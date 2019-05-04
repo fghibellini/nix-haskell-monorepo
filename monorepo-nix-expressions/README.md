@@ -64,7 +64,7 @@ This file is not strictly necessary as Nix allows you to scan directories for fi
 
 Assuming our packages really do depend only on each other or their dependencies can be satisfied with packages from our pinned nixpkgs, we can already take them for a spin.
 We will build our packages by inserting them into the haskell package set of nixpkgs.
-Nixpkgs accepts a config argument that allows us to override packages in a function (non-destructive) manner.
+Nixpkgs accepts a config argument that allows us to override packages in a functional (non-destructive) manner.
 We override `haskellPackages` to be the package set for `ghc844` but before assigning it we also modify the set by adding our own packages.
 
 ```nix
