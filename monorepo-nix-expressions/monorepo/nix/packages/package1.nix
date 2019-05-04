@@ -2,7 +2,7 @@
 mkDerivation {
   pname = "package1";
   version = "0.1.0.0";
-  src = .././code/package1;
+  src = ../../code/package1;
   isLibrary = false;
   isExecutable = true;
   executableHaskellDepends = [ aeson base package2 text ];

@@ -16,32 +16,48 @@ $ cd monorepo
 
 $ tree .
 .
-└── code
-    ├── package1
-    │   ├── package1.cabal
-    │   └── exe
-    └── package2
-        ├── package2.cabal
-        └── src
+├── code
+│   ├── package1
+│   │   ├── package1.cabal
+│   │   └── src
+│   │       └── Main.hs
+│   └── package2
+│       ├── exe
+│       │   └── Lollipops
+│       │       └── Colorant.hs
+│       └── package2.cabal
+└── nix
+    ├── generate-packages.sh
+    ├── pinned-nixpkgs.nix
+    └── release.nix
 
-$ ../generate-packages.sh ../code
+$ cd nix
+$ ./generate-packages.sh ../code
 
+$ cd ..
 $ tree .
 .
 ├── code
 │   ├── package1
 │   │   ├── package1.cabal
-│   │   └── exe
+│   │   └── src
+│   │       └── Main.hs
 │   └── package2
-│       ├── package2.cabal
-│       └── src
-├── hydra.nix
-├── packages
-│   ├── package1.nix
-│   └── package2.nix
-└── packages.nix
+│       ├── exe
+│       │   └── Lollipops
+│       │       └── Colorant.hs
+│       └── package2.cabal
+└── nix
+    ├── generate-packages.sh
+    ├── hydra.nix
+    ├── packages
+    │   ├── package1.nix
+    │   └── package2.nix
+    ├── packages.nix
+    ├── pinned-nixpkgs.nix
+    └── release.nix
 
-$ cat packages/package1.nix
+$ cat nix/packages/package1.nix
 { mkDerivation, aeson, base, package2, stdenv, text }:
 mkDerivation {
   pname = "package1";
@@ -52,7 +68,7 @@ mkDerivation {
   hydraPlatforms = stdenv.lib.platforms.none;
 }
 
-$ cat packages.nix
+$ cat nix/packages.nix
 {
     package2 = import ./packages/package2.nix;
     package1 = import ./packages/package1.nix;
