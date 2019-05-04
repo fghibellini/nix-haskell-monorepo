@@ -9,7 +9,7 @@ It actually wouldn't, but here's a tutorial anyway.
 2. [monorepo nix expressions](./monorepo-nix-expressions)
 3. [extra deps](./extra-deps)
 4. [system deps](./system-deps)
-5. shell.nix
+5. [shell.nix](./shell.nix)
 6. code cleanup
 7. setting up a hydra instance
 8. hydra project config
