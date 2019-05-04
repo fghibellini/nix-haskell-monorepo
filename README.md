@@ -30,3 +30,12 @@ What can you gain by implementing this architecture:
 - easily bootstrappable local enrionment ??? TBD
 - "reproducibility" - kinda
 
+# What does "pragmatic" stand for here? Why don't you just read the whole Nix manual?!
+
+If you've taken a university-level math course you will know that
+elementary school math classes can hardly be considered as teachings about math.
+You will probably still agree that it's kinda nice that most people
+know how to add two numbers together.
+
+Nix lacks a lot of elementary-level material.
+
