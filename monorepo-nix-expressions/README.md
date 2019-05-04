@@ -87,7 +87,7 @@ in nixpkgs
 ```
 
 The `nixpkgs` value we return now from `release.nix` is the exact same package set as before,
-but instead of having `haskellPackages` pointing to a pristine package set for `ghc-8.6.4` (you can check the default by running `nix-instantiate --eval -E '(import (import ./pinned-nixpkgs.nix) {}).haskellPackages.ghc.version'`), it points to our
+but instead of having `haskellPackages` pointing to a pristine package set for `ghc-8.6.4` <sup>[1](#footnote-1)</sup>, it points to our
 modified package set for ghc-8.4.4. `haskell.packages.ghc844` still points to the pristine package set for `ghc-8.4.4` - just try `nix-instantiate --eval -E 'haskell.packages.ghc844.package1' "<nixkpgs>"`, it will fail.
 
 Now we can build and execute our package by running:
@@ -110,3 +110,5 @@ Or use it as a haskell dependency:
 ```bash
 $ nix-shell -p "(import ./release.nix).haskellPackages.ghcWithPackages (pkgs: [ pkgs.package1 ])"
 ```
+
+<a id="footnote-1"><b>[1]</b></a> You can check the default by running `nix-instantiate --eval -E '(import (import ./pinned-nixpkgs.nix) {}).haskellPackages.ghc.version'`
