@@ -31,6 +31,12 @@ To prevent this, we need to use a technique called __*nixpkg pinning*__.
 It's nothing really scary - you simply specify an exact `nixpkg` commit in your expression and manually fetch it.
 From version `2.0` nix has a handy function called [`builtins.fetchGit`](https://nixos.org/nix/manual/#builtin-fetchGit) that allows us to do just that!
 
+> IMPORTANT!
+>
+> `Nixpkgs` also provides a [fetcher function](https://nixos.org/nixpkgs/manual/#sec-pkgs-fetchers) called `fetchgit`.
+>
+> DO NOT USE THAT ONE ! We will not go into explaining the difference for simplicity's sake.
+
 ```nix
 # release.nix
 let
