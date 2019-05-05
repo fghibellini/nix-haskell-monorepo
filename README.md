@@ -16,7 +16,7 @@ It actually wouldn't, but here's a tutorial anyway.
 9. [docker images](./docker)
 10. [developer ergonomy](./developer-ergonomy)
     1. [checking that caching works](./developer-ergonomy/checking-that-caching-works)
-    2. prefetch-nixpkgs
+    2. [prefetch-nixpkgs.sh](./developer-ergonomy/prefetch-nixpkgs.sh)
     3. making sure Cabal, Stack and Nix use the same versions
 11. major drawbacks & possible improvements
 
@@ -30,7 +30,7 @@ What can you gain by implementing this architecture:
 - easily bootstrappable local enrionment ??? TBD
 - "reproducibility" - kinda
 
-# What does "pragmatic" stand for here? Why don't you just read the whole Nix manual?!
+# What does "pragmatic" stand for here? Why don't you just read the Nix manual?!
 
 If you've taken a university-level math course you will know that
 elementary school math classes can hardly be considered as teachings about math.
