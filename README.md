@@ -22,7 +22,7 @@ It actually wouldn't, but here's a tutorial anyway.
 
 # Why?
 
-What can you gain by implementing this architecture:
+What can you gain by following this tutorial:
 
 - easy to write, ridiculously scalable, integration test-suites
 - cached package-builds across machines
