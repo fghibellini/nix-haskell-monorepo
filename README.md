@@ -17,7 +17,8 @@ It actually wouldn't, but here's a tutorial anyway.
 10. developer ergonomy
     1. checking that caching works
     2. prefetch-nixpkgs
-11. possible improvements
+    3. making sure Cabal, Stack and Nix use the same versions
+11. major drawbacks & possible improvements
 
 # Why?
 
