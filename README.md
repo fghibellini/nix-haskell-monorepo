@@ -14,8 +14,8 @@ It actually wouldn't, but here's a tutorial anyway.
 7. hydra project config
 8. [nix tests](./nix-tests)
 9. [docker images](./docker)
-10. developer ergonomy
-    1. checking that caching works
+10. [developer ergonomy](./developer-ergonomy)
+    1. [checking that caching works](./developer-ergonomy/checking-that-caching-works)
     2. prefetch-nixpkgs
     3. making sure Cabal, Stack and Nix use the same versions
 11. major drawbacks & possible improvements
