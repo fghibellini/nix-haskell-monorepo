@@ -18,6 +18,16 @@ reboot                                # STEP 4
 Once you generate the NixOS config file (step 1), you will want to edit the files included in [./hydra](./hydra) and copy them to `/etc/nixos`.
 Then run `nixos-install` and you're ready to reboot.
 
+> NOTE
+>
+> When running any command that will use the above config file you will get a warning:
+>
+> ```
+> warning: unknown setting 'allowed-uris'
+> ```
+>
+> This is a [bug](https://github.com/NixOS/nix/issues/2480), but the config works just fine - you can safely ignore it.
+
 To sum up the config:
 
 ```nix
