@@ -132,3 +132,7 @@ require-sigs = false
 
 Where `10.0.0.25` is the IP address of your Hydra instance.
 
+# TODO Darwin caching
+
+TODO darwin builder
+TODO cover `nix copy --to ssh://appuipieds $(nix-instantiate shell.nix)`
