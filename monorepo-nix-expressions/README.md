@@ -128,4 +128,24 @@ Or use it as a haskell dependency:
 $ nix-shell -p "(import ./release.nix).haskellPackages.ghcWithPackages (pkgs: [ pkgs.package1 ])"
 ```
 
+> WARNING
+>
+> You might get the following warning when building your projects:
+>
+> ```
+> warning: dumping very large path (> 256 MiB); this may run out of memory
+> ```
+>
+> When Nix evaluates the expression for your package, it will force the attribute `src` which is a Nix path
+> to the source code of the package. In order for Nix to create a derivation for it, it needs to first store
+> the source in the store and replace the path with the store path. Before copying the whole source though
+> it will compute the hash for the whole subtree of the path and if it is already in the store it will just reuse that path.
+>
+> This is problematic for 2 reasons:
+> 1. currently there is a [bug](https://github.com/NixOS/nix/issues/358) that causes the SHA computation to run in non-constant memory space
+> 2. any files in the source tree that don't really represent source code are also taken into account.
+>    An example are `.stack-work` folders, you might potentially have one for each package and they are typically huge, as they contain all build artefacts.
+>
+> A way to mitigate *2* is modifying the `src` attribute to take only the desired files into account. [nix-gitignore](https://github.com/siers/nix-gitignore) can be used to fix this.
+
 <a id="footnote-1"><b>[1]</b></a> You can check the default by running `nix-instantiate --eval -E '(import (import ./pinned-nixpkgs.nix) {}).haskellPackages.ghc.version'`
