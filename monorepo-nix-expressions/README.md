@@ -172,6 +172,7 @@ mkDerivation {
 }
 ```
 
+In the [next chapter](../extra-deps) we will see how to override third-party haskell dependencies.
+
 <a id="footnote-1"><b>[1]</b></a> You can check the default by running `nix-instantiate --eval -E '(import (import ./pinned-nixpkgs.nix) {}).haskellPackages.ghc.version'`
 
-In the [next chapter](../extra-deps) we will see how to override third-party haskell dependencies.
