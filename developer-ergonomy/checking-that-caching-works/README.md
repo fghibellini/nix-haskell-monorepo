@@ -35,7 +35,7 @@ WantMassQuery: 1
 Priority: 30
 ```
 
-The info about a derivation is exposed at "/<hash of the derivation>.narinfo".
+The info about a derivation is exposed at "/&lt;hash of the derivation&gt;.narinfo".
 So if you're trying to build `/nix/store/d4vqy3sh0ngm9hsp7wwils7j6bms52xc-foundation-0.0.23` and your cache is at `http://10.0.0.3:5000` Nix will first
 query `http://10.0.0.3:5000/d4vqy3sh0ngm9hsp7wwils7j6bms52xc.narinfo`. Assuming the cache contains the package the output will look something like:
 
