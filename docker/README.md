@@ -19,6 +19,8 @@ in
     })
 ```
 
+Here we're simply reusing the code from [../nix-tests](../nix-tests).
+
 # TODO minimze closure ?
 
 There's really nothing much else to say about this.
