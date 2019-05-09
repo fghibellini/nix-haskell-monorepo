@@ -68,3 +68,5 @@ For this reason evaluations that succeeded on your machine might fail on Hydra.
 If the failure is cause by your expression trying to fetch some source-code repo, simply add it to the list of `allowed-uris` in the NixOS config file ([see](../setting-up-a-hydra-instance/)).
 
 
+In the [next chapter](../nix-tests) we will write our first Nix tests.
+

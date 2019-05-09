@@ -149,3 +149,5 @@ $ nix-shell -p "(import ./release.nix).haskellPackages.ghcWithPackages (pkgs: [ 
 > A way to mitigate *2* is modifying the `src` attribute to take only the desired files into account. [nix-gitignore](https://github.com/siers/nix-gitignore) can be used to fix this.
 
 <a id="footnote-1"><b>[1]</b></a> You can check the default by running `nix-instantiate --eval -E '(import (import ./pinned-nixpkgs.nix) {}).haskellPackages.ghc.version'`
+
+In the [next chapter](../extra-deps) we will see how to override third-party haskell dependencies.

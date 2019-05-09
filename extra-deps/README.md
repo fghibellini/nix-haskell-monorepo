@@ -175,5 +175,6 @@ in (super: {
 
 TODO native deps in extra deps
 
+In the [next chapter](../system-deps) we will se how to add system dependencies to our packages.
 
 <a id="footnote-1"><b>[1]</b></a> `nix-instantiate --eval -E '(import (import ./pinned-nixpkgs.nix) {}).haskell.packages.ghc844.servant.version'` evaluates to `"0.15"`

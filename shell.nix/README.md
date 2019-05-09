@@ -135,3 +135,6 @@ nix-shell:
   script:
     cd $CI_PROJECT_DIR/code && nix-shell --command 'cabal new-configure && cabal new-build all'
 ```
+
+In the [next chapter](../setting-up-a-hydra-instance) we will see how to get up and running a NixOS machine with a Hydra daemon.
+

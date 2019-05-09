@@ -22,3 +22,6 @@ in
 # TODO minimze closure ?
 
 There's really nothing much else to say about this.
+
+In the [following chapter](../developer-ergonomy) we spend some time making sure that your less nix-invested colleagues
+have a good experience too.

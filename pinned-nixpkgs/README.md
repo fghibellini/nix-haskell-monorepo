@@ -123,3 +123,5 @@ ghc-pkg list
     xhtml-3000.2.2.1
 ```
 
+In the [next chapter](../monorepo-nix-expressions) we will generate Nix expressions for our monorepo packages.
+

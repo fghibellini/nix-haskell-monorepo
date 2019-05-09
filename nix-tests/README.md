@@ -40,3 +40,6 @@ You can run the test with:
 ```
 nix-build ./test-etcd-registration.nix
 ```
+
+In the [next chapter](../docker) we will use Nix to automatically generate docker images for all our packages.
+

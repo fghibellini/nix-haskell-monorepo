@@ -52,3 +52,5 @@ Sig: appuipieds-1:LFSKXu7VGR/4tIyNMVdQXLyilp0WMW6cylJJhNIdMdAGB+ZP975v9IWG9BXfG7
 
 If the cache doesn't have the desired derivation it will simply return a 404.
 
+
+In the [next chapter](../prefetch-nixpkgs.sh) we will write a script to mitigate first-time executions of Nix.

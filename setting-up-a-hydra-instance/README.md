@@ -136,3 +136,6 @@ Where `10.0.0.25` is the IP address of your Hydra instance.
 
 TODO darwin builder
 TODO cover `nix copy --to ssh://appuipieds $(nix-instantiate shell.nix)`
+
+Now that we have a NixOS machine up and running we can proceed to the [next chapter](../hydra-project-config) where
+we configure Hydra to automatically run our builds.

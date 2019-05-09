@@ -130,4 +130,6 @@ packageOverrides = pkgs: let sps = system-deps { pkgs = pkgs; }; in rec {
   unixODBC = sps.unixODBC;
 ```
 
+In the [next chapter](../shell.nix) we will see how to create a virtual environment
+for your devs.
 
