@@ -13,10 +13,10 @@ the dependencies of all our packages, such that the only task left to Cabal is a
 > NOTE
 >
 > Cabal used to have an `--offline` flag that would assure it couldn't fetch any packages from the internet.
-> It seems it no longer works with the new API.
-> If you really want to make sure Cabal is using the packages provided by Nix you can use the following hack:
+> It seems it [no longer works with the new API](https://github.com/haskell/cabal/issues/5346).
+> If you really want to make sure Cabal is using the packages provided by Nix you can use the [following hack](https://github.com/haskell/cabal/issues/5783#issuecomment-445518839):
 >
-> 1. Remove all the other files and directories in the `~/.cabal` folder, so that any already fetched packages will be removed
+> 1. Remove all the files and directories except `config` in the `~/.cabal` folder, so that any already fetched packages will be removed
 > 2. Remove any `dist` folders that were results of previous `cabal` runs
 > 3. Comment out the repository section in your `~/.cabal/config` like so:
 > ```
@@ -44,6 +44,16 @@ build the packages in the correct order until everything is built. Instead of "a
 very minimum to build that one package.
 
 Which versions of the dependencies will Cabal fetch is a complicated topic and can be entirely avoided by using Nix.
+
+> NOTE
+>
+> If you were already using Cabal to build your monorepo and you are specifying external dependencies explicitly,
+> you will want to create a second `cabal.project` in the nix folder without those external deps.
+> Then you will have to specify the `caba.project` file with all the cabal invocations. e.g.
+> ```
+> cabal new-configure --project-file ../nix/cabal.project && cabal new-build --project-file ../nix/cabal.project
+> ```
+> It is unfortunate that Cabal doesn't allow to specify the project file with an environment variable instead of a flag.
 
 # With Nix
 
