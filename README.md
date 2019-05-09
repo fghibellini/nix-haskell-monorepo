@@ -11,7 +11,7 @@ It actually wouldn't, but here's a tutorial anyway.
 4. [system deps](./system-deps)
 5. [shell.nix](./shell.nix)
 6. [setting up a hydra instance](./setting-up-a-hydra-instance)
-7. hydra project config
+7. [hydra project config](./hydra-project-config)
 8. [nix tests](./nix-tests)
 9. [docker images](./docker)
 10. [developer ergonomy](./developer-ergonomy)
