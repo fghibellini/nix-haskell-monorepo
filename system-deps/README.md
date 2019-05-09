@@ -51,7 +51,7 @@ in rec {
 
 Just like in [extra-deps](../extra-deps) we generate a nix expression for `odbc` and manually add `freetds` and `unixODBC` as dependenices in `extra-deps.nix`:
 
-```
+```nix
 let
 
     odbc = { mkDerivation, async, base, bytestring, containers, deepseq
@@ -98,7 +98,7 @@ in {
 
 We then need to modify the `release.nix` file to fix the native libs:
 
-```
+```nix
 ...
   system-deps = import ./system-deps.nix;
   monorepo-pkgs = import ./packages.nix;
@@ -117,14 +117,14 @@ We then need to modify the `release.nix` file to fix the native libs:
 
 Where:
 
-```
+```nix
 packageOverrides = pkgs: rec {
   inherit (system-deps { inherit pkgs; }) freetds unixODBC;
 ```
 
 is the shorthand for:
 
-```
+```nix
 packageOverrides = pkgs: let sps = system-deps { pkgs = pkgs; }; in rec {
   freetds = sps.freetds;
   unixODBC = sps.unixODBC;
