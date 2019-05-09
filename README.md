@@ -1,9 +1,10 @@
 
 # Nix Haskell Monorepo Tutorial
 
-If you've got a haskell monorepo to manage, you've probably already thought a few times to yourself: *"Maan, wouldn't it be so much easier with Nix?"*
+I recently tried to create Nix setup for our Haskell monorepo at work. This tutorial documents the whole process.
+This is still experimental and any feedback is very welcome.
 
-It actually wouldn't, but here's a tutorial anyway.
+I absolutely recommend reading first [Gabriel's tutorial](https://github.com/Gabriel439/haskell-nix) on how to use Nix with Haskell in general.
 
 1. [pinned nixpkgs](./pinned-nixpkgs)
 2. [monorepo nix expressions](./monorepo-nix-expressions)
@@ -24,18 +25,9 @@ It actually wouldn't, but here's a tutorial anyway.
 
 What can you gain by following this tutorial:
 
-- easy to write, ridiculously scalable, integration test-suites
+- easy to write, integration test-suites
 - cached package-builds across machines
-- self-contained project description - no need to list system dependencies
+- self-contained project description - no need to list system dependencies in a readme
+- reproducibility
 - easily bootstrappable local enrionment ??? TBD
-- "reproducibility" - kinda
-
-# What does "pragmatic" stand for here? Why don't you just read the Nix manual?!
-
-If you've taken a university-level math course you will know that
-elementary school math classes can hardly be considered as teachings about math.
-You will probably still agree that it's kinda nice that most people
-know how to add two numbers together.
-
-Nix lacks a lot of elementary-level material.
 
