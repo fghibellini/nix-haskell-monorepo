@@ -33,8 +33,7 @@ the result of the above checkout is cached in the store.
 > POSSIBLE NIX IMPROVEMENT
 >
 > It would probably make sense for nix to cache a [Nixpkgs](https://github.com/NixOS/nixpkgs) checkout somewhere internally and
-> resolve calls like the one above by simply first performing a fetch thus making sure all commits are present and then cloning
->
+> resolve calls like the one above by simply first performing a fetch thus making sure all the new commits are present and then cloning
 > into the store from it. This can be completely transparent to the user.
 
 This concludes the tutorial (for now), I hope you found it helpful!

@@ -2,7 +2,7 @@
 # Nix Haskell Monorepo Tutorial
 
 I recently tried to create Nix setup for our Haskell monorepo at work. This tutorial documents the whole process.
-This is still experimental and any feedback is very welcome.
+This is still experimental and any feedback is very welcome. If you find it hard to understand some part just open an issue.
 
 I absolutely recommend reading first [Gabriel's tutorial](https://github.com/Gabriel439/haskell-nix) on how to use Nix with Haskell in general.
 
