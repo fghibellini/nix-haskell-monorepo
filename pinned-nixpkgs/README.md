@@ -27,6 +27,11 @@ let
 Both of these approaches expect `nixpkgs` to be supplied from their environment, making the whole derivation non-reproducible.
 The moment the environment changes its `nixpkgs`, the result of our expression will be completely different.
 
+> NOTE
+>
+> Here we describe a technique where we let the Nix evaluator fetch a pre-specified commit of Nixpkgs.
+> An alertnative using git submodules is described in [nixops tutorial](https://github.com/nh2/nixops-tutorial#nixops-tutorial).
+
 To prevent this, we need to use a technique called __*nixpkg pinning*__.
 It's nothing really scary - you simply specify an exact `nixpkg` commit in your expression and manually fetch it.
 From version `2.0` nix has a handy function called [`builtins.fetchGit`](https://nixos.org/nix/manual/#builtin-fetchGit) that allows us to do just that!
