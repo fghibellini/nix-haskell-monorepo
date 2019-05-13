@@ -1,6 +1,10 @@
 
 # shell.nix
 
+> # TODO
+>
+> Reimplement using `<haskellPackge>.getBuildInputs.haskellBuildInputs`
+
 [The nix haskell tutorial](https://github.com/Gabriel439/haskell-nix/tree/master/project0#building-with-cabal) explains how to use Nix to provision a shell environment,
 in which you get all the tools required to build your package with Cabal.
 
