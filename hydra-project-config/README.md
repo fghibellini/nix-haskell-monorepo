@@ -3,15 +3,15 @@
 
 ## Initial Hydra setup
 
-**TODO** initializing the DB
+As root:
 
-**TODO** Creating the initial user
+```
+$ hydra-init # initialize DB
+$ hydra-create-user alice --full-name 'Alice Q. User' \
+    --email-address 'alice@example.org' --password foobar --role admin
+```
 
 ## Structure
-
-> NOTE
->
-> We're going to assume a monorepo of two haskell packages `package1` and `package2`.
 
 Hydra uses the following entities:
 
@@ -21,11 +21,9 @@ Hydra uses the following entities:
 
 A job represents the execution of the build of a single derivation (and its dependencies).
 Instead of configuring single jobs Hydra has a notion of jobsets. To configure a jobset you first need a Nix expression that evaluates
-to a derivation-valued attribute set. The attribute names are used as job names. Once you have this
-expression in your repo you can create a jobset by specifying the git url to track and the path to this Nix expression file.
+to a derivation-valued attribute set. The attribute names are used as job names.
+Once you have this expression in your repo you can create a jobset by specifying the git url to track and the path to this Nix expression file.
 Jobsets are configured inside of projects which are just logical groupings of them.
-
-**TODO** add screenshots of web UI
 
 In practice you would have a structure similar to the following:
 
@@ -55,9 +53,30 @@ In practice you would have a structure similar to the following:
        +- user-handles-exist [job]
 ```
 
+### Projects
+
+![projects](./projects.png)
+
+### Jobsets
+
+![jobsets](./jobsets.png)
+
+### Evaluations
+
+![evaluations](./evaluations.png)
+
+### Jobs
+
+![jobs](./jobs.png)
+
+### Adding a jobset
+
+![adding a jobset](./add-jobset.png)
+
+
 ## Evaluation mode
 
-The evaluation of the jobset expression is ran in pure-evaluation-mode.
+The evaluation of the jobset expression is run in pure-evaluation-mode.
 From the Nix manual:
 
 > Pure evaluation mode. This is a variant of the existing restricted evaluation mode. In pure mode, the Nix evaluator forbids access to anything that could cause different evaluations of the same command line arguments to produce a different result. This includes builtin functions such as builtins.getEnv, but more importantly, all filesystem or network access unless a content hash or commit hash is specified. For example, calls to builtins.fetchGit are only allowed if a rev attribute is specified.
