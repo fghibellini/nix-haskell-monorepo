@@ -21,9 +21,5 @@ in
 
 Here we're simply reusing the code from [../nix-tests](../nix-tests).
 
-# TODO minimze closure ?
-
-There's really nothing much else to say about this.
-
 In the [following chapter](../developer-ergonomy) we spend some time making sure that your less nix-invested colleagues
 have a good experience too.
