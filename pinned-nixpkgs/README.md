@@ -73,6 +73,8 @@ nix-shell -p '(import ./release.nix).haskellPackages.ghcWithPackages (pkgs: [ pk
 Which will throw us into a prompt where we have `ghc` available with `lenses` and `diagrams` preinstalled.
 It is important to emphasize that the two above files will always provide us with the exact same version of `ghc`, `lenses` and `diagrams` no matter the system, time or other circumstances under which the `nix-shell` command will be run.
 
+So the output of the following command in the above provided shell should be the same even if run years from now (see [this](./INPUTS-EXPLAINED.md) to understand why it might differ).
+
 ```bash
 ghc-pkg list
 /nix/store/g1pp002k9ba0almdfdn4jdkfz81yr62s-ghc-8.6.4-with-packages/lib/ghc-8.6.4/package.conf.d
