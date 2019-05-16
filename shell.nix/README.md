@@ -14,7 +14,7 @@ the dependencies of all our packages, such that the only task left to Cabal is a
 >
 > Cabal used to have an `--offline` flag that would assure it couldn't fetch any packages from the internet.
 > It seems it [no longer works with the new API](https://github.com/haskell/cabal/issues/5346).
-> If you really want to make sure Cabal is using the packages provided by Nix you can use the [following hack](https://github.com/haskell/cabal/issues/5783#issuecomment-445518839):
+> If you really want to make sure Cabal is using the packages provided by Nix you can use the following hack ([source](https://github.com/haskell/cabal/issues/5783#issuecomment-445518839)):
 >
 > 1. Remove all the files and directories except `config` in the `~/.cabal` folder, so that any already fetched packages will be removed
 > 2. Remove any `dist` folders that were results of previous `cabal` runs
@@ -35,11 +35,11 @@ To make use of the new multi-package support, you have to declare a `cabal.proje
 you will simply list the constituent packages like so:
 
 ```
-packages: package1
-          package2
+packages: hello-world
+          universe
 ```
 
-If you now run `cabal new-configure && cabal new-build all` Cabal will first fetch all the dependencies of both `package1` and `package2` and it will then
+If you now run `cabal new-configure && cabal new-build all` Cabal will first fetch all the dependencies of both `hello-world` and `universe` and it will then
 build the packages in the correct order until everything is built. Instead of "all" you can also specify a single package and Cabal will only build the
 very minimum to build that one package.
 
@@ -53,26 +53,29 @@ Which versions of the dependencies will Cabal fetch is a complicated topic and c
 > ```
 > cabal new-configure --project-file ../nix/cabal.project && cabal new-build --project-file ../nix/cabal.project
 > ```
-> It is unfortunate that Cabal doesn't allow to specify the project file with an environment variable instead of a flag.
+> It is unfortunate that Cabal doesn't allow to specify the project file with an environment variable instead of a flag,
+> since we can specify environment variables in shell.nix files.
 
-# With Nix
+# Nix as package provisioner
 
 Every haskell derivation in Nix provides us with a `env` attribute.
 If we try to create a shell with this attribute (e.g. `nix-shell -A haskellPackages.aeson.env "<nixpkgs>"`) we will end up with a GHC that has
-all the dependencies already installed. When we subsequently run Cabal it will realize that there is no fetching to be done and proceed to only build the monorepo packages.
+all the dependencies of the given package already installed. When we subsequently run Cabal it will realize that there is no fetching to be done
+and proceed to only build the requested package.
 
 What we would like though in our case, is a the environment for a __set__ of packages.
-Upon some thinking you will realise that all the dependencies are listed in the arguments of the Nix expressions we generated for our Haskell packages.
+All the dependencies are listed in the arguments of the Nix expressions we generated for our Haskell packages.
 We could create a program that would go over the nix expressions in `packages`, parse the arguments and output the concatenated list of them into a dummy Haskell package Nix expression.
 This is exactly what I tried at first and [here](https://github.com/fghibellini/nix-scripts/tree/master/monorepo-gen-env) you can find the source for it.
 
-> # NOTE
+I then realised the expression can be generated dynamically by using the Nix builtin functions.
+
+> NOTE
 >
-> After the below described solution I realised it should be possible to implement the same,
+> After having implemented the below described solution I realised it should be possible to do the same,
 > but in a more reliable manner with less code by using `<haskellPackge>.getBuildInputs.haskellBuildInputs`.
 > I described this in a [separate file](./APPROACH2.md) as it currently doesn't seem to work properly.
 
-I then realised the expression can be generated dynamically by using the Nix builtin functions.
 We start off by creating the template for the expression:
 
 ```nix
@@ -109,8 +112,9 @@ in
 The function code looks very cryptic, but it really does what we want. You can simply run the function on our `packages` folder and see it indeed returns a list of strings representing the dependencies.
 
 ```bash
-$ nix-instantiate --eval -E "((import <nixpkgs> {}).callPackage ./compute-monorepo-deps.nix {}) ./packages"
-[ "algebraic-graphs" "time" "http2" "statistics" ]
+$ cd nix
+$ nix-instantiate --eval -E "((import <nixpkgs> {}).callPackage ./lib/compute-monorepo-deps.nix {}) ./packages"
+[ "aeson" "base" "text" ]
 ```
 
 Now we can simply replace the placeholder empty list with the function call:
@@ -141,12 +145,48 @@ We can greatly take advantage of this and add a `shell.nix` file to our `code` f
 Now any user can simply move to the folder containing our haskell packages and run `nix-shell` without any arguments and he will be
 thrown in a shell with all the deps required to run a simple `cabal new-configure && cabal new-build all`.
 
+```bash
+$ cd code
+$ nix-shell
+[nix-shell:.../monorepo/code]$ cabal new-configure
+Warning: No remote package servers have been specified. Usually you would have
+one specified in the config file.
+Resolving dependencies...
+Build profile: -w ghc-8.4.4 -O1
+In order, the following would be built (use -v for more details):
+ - universe-0.2.0.0 (lib) (first run)
+ - hello-world-0.1.0.0 (exe:hello-world-exe) (first run)
+
+[nix-shell:.../monorepo/code]$ cabal new-build all
+Build profile: -w ghc-8.4.4 -O1
+In order, the following will be built (use -v for more details):
+ - universe-0.2.0.0 (lib) (first run)
+ - hello-world-0.1.0.0 (exe:hello-world-exe) (first run)
+Configuring library for universe-0.2.0.0..
+clang-5.0: warning: argument unused during compilation: '-nopie' [-Wunused-command-line-argument]
+Preprocessing library for universe-0.2.0.0..
+Building library for universe-0.2.0.0..
+[1 of 1] Compiling Universe.World   ( src/Universe/World.hs, .../monorepo/code/dist-newstyle/build/x86_64-osx/ghc-8.4.4/universe-0.2.0.0/build/Universe/World.o )
+Configuring executable 'hello-world-exe' for hello-world-0.1.0.0..
+clang-5.0: warning: argument unused during compilation: '-nopie' [-Wunused-command-line-argument]
+Preprocessing executable 'hello-world-exe' for hello-world-0.1.0.0..
+Building executable 'hello-world-exe' for hello-world-0.1.0.0..
+[1 of 1] Compiling Main             ( exe/Main.hs, .../monorepo/code/dist-newstyle/build/x86_64-osx/ghc-8.4.4/hello-world-0.1.0.0/x/hello-world-exe/build/hello-world-exe/hello-world-exe-tmp/Main.o )
+Linking .../monorepo/code/dist-newstyle/build/x86_64-osx/ghc-8.4.4/hello-world-0.1.0.0/x/hello-world-exe/build/hello-world-exe/hello-world-exe ...
+clang-5.0: warning: argument unused during compilation: '-nopie' [-Wunused-command-line-argument]
+clang-5.0: warning: argument unused during compilation: '-nopie' [-Wunused-command-line-argument]
+
+[nix-shell:.../monorepo/code]$ cabal new-run hello-world-exe
+Up to date
+Hello WORLD!!!
+```
+
 You can also add the following to your `.gitlab-ci.yml` if you want to make sure the above command trio will always work:
 
 ```
 nix-shell:
   stage: build-and-lint
-  image: fghibellini/nix:tar
+  image: fghibellini/nix
   allow_failure: true
   script:
     cd $CI_PROJECT_DIR/code && nix-shell --command 'cabal new-configure && cabal new-build all'

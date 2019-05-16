@@ -34,5 +34,5 @@ in
             args = builtins.mapAttrs (name: value: builtins.attrNames (builtins.functionArgs (import (dir + "/${name}")))) files;
             union = unique (builtins.concatLists (builtins.attrValues args));
         in
-            builtins.filter (pkg: ! builtins.elem pkg (["stdenv" "mkDerivation"] ++ project-names)) union
+            builtins.filter (pkg: ! builtins.elem pkg (["nix-gitignore" "stdenv" "mkDerivation"] ++ project-names)) union
 
