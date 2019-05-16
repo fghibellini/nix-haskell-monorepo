@@ -32,8 +32,8 @@ $ cd nix
 $ ./generate-packages.sh ../code
 Clearing folder /Users/fghibellini/code/nix-haskell-monorepo/monorepo-nix-expressions/monorepo/nix/packages
 Reading packages in /Users/fghibellini/code/nix-haskell-monorepo/monorepo-nix-expressions/monorepo/code
-Generating cabal for package: hello-world (dir: /Users/fghibellini/code/nix-haskell-monorepo/monorepo-nix-expressions/monorepo/code/hello-world)
-Generating cabal for package: universe (dir: /Users/fghibellini/code/nix-haskell-monorepo/monorepo-nix-expressions/monorepo/code/universe)
+Generating Nix expression for package: hello-world (dir: /Users/fghibellini/code/nix-haskell-monorepo/monorepo-nix-expressions/monorepo/code/hello-world)
+Generating Nix expression for package: universe (dir: /Users/fghibellini/code/nix-haskell-monorepo/monorepo-nix-expressions/monorepo/code/universe)
 
 $ cd ..
 $ tree .

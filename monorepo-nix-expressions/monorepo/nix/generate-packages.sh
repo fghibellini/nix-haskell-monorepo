@@ -14,6 +14,12 @@ fi
 
 CODE_ROOT="$1"
 
+# this prepends the path in a Nix expression's `src` attribute with a call to `nix-gitignore.gitignoreSourcePure`
+# while also adding nix-gitignore as a dependency
+function gitignore-src() {
+  sed -i '1s/{ /{ nix-gitignore, / ; /^\s*src = / s/src = /src = nix-gitignore.gitignoreSourcePure [ ..\/..\/..\/.gitignore ] /' "$1"
+}
+
 echo "Clearing folder $(readlink -f ./packages/)"
 {
 mkdir ./packages || true
@@ -34,8 +40,8 @@ for row in $(grep -R --include '*.cabal' --exclude-dir '.stack-work' '^name:' "$
   CABAL_FILE_DIR="$(dirname "$cf")"
   PACKAGE_NAME="$(echo $row | cut -d: -f2)"
 
-  printf "Generating cabal for package: %s (dir: %s)\n" "$PACKAGE_NAME" "$(readlink -f "$CABAL_FILE_DIR")"
-  (cd packages && cabal2nix ../$CABAL_FILE_DIR > ./${PACKAGE_NAME}.nix)
+  printf "Generating Nix expression for package: %s (dir: %s)\n" "$PACKAGE_NAME" "$(readlink -f "$CABAL_FILE_DIR")"
+  (cd packages && cabal2nix $($WITH_HPACK && echo '--hpack') ../$CABAL_FILE_DIR > ./${PACKAGE_NAME}.nix && gitignore-src ./${PACKAGE_NAME}.nix)
 
   PKGS+=("$PACKAGE_NAME")
   echo "    ${PACKAGE_NAME} = import ./packages/${PACKAGE_NAME}.nix;" >> packages.nix
