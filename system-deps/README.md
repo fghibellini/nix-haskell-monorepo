@@ -2,7 +2,7 @@
 # System Deps
 
 Sometimes a haskell package will depend on a native library. In Nix this dependency has to be explicitly tracked.
-In the simple case you would simply create a Nix expression for the haskell library and add the native library to the [`librarySystemDepends`](https://github.com/NixOS/nixpkgs/blob/1330269c1556e5600b1ea11061712cf649e72d4f/pkgs/development/haskell-modules/configuration-nix.nix#L383) attribute list and add it as an input argument to your expression.
+In the simple case you would simply create a Nix expression for the haskell library and add the native library to the `librarySystemDepends` attribute list ([example](https://github.com/NixOS/nixpkgs/blob/1330269c1556e5600b1ea11061712cf649e72d4f/pkgs/development/haskell-modules/configuration-nix.nix#L383)) and add it as an input argument to your expression.
 The `haskellPackages.callPackage` function would then take care of finding the appropriate package and supplying it.
 As the following case-study shows it's sometimes easier said than done.
 
