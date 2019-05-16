@@ -1,30 +1,35 @@
 let
 
-    grpc-etcd-client = { mkDerivation, base, bytestring, fetchgit, grpc-api-etcd, hpack
-    , http2-client, http2-client-grpc, lens, network, proto-lens
-    , proto-lens-runtime, stdenv
-    }:
-    mkDerivation {
-      pname = "grpc-etcd-client";
-      version = "0.1.2.1";
-      src = fetchgit {
-        url = "https://github.com/fghibellini/etcd-grpc";
-        sha256 = "0dn9ds58f61xi6br9v1djr3hril7jbyvbcjhnsg382h1knarfa71";
-        rev = "80ac296291a09be3eb70a9ea07677a575e4ec442";
-        fetchSubmodules = true;
-      };
-      postUnpack = "sourceRoot+=/grpc-etcd-client; echo source root reset to $sourceRoot";
-      libraryHaskellDepends = [
-        base bytestring grpc-api-etcd http2-client http2-client-grpc lens
-        network proto-lens proto-lens-runtime
-      ];
-      libraryToolDepends = [ hpack ];
-      preConfigure = "hpack";
-      homepage = "https://github.com/lucasdicioccio/etcd-grpc#readme";
-      description = "gRPC client for etcd";
-      license = stdenv.lib.licenses.bsd3;
-    };
+    dontCheck = (import ./release.nix).haskell.lib.dontCheck;
+
+    http2-grpc-types = { mkDerivation, base, binary, bytestring, case-insensitive
+        , fetchgit, hpack, proto-lens, stdenv, zlib
+        }:
+        mkDerivation {
+          pname = "http2-grpc-types";
+          version = "0.3.0.1";
+          src = fetchgit {
+            url = "https://github.com/lucasdicioccio/http2-grpc-types.git";
+            sha256 = "08ni3cl9q3va0sr81dahn17g9wf8fn6srp6nsnvpzrfrp3myfsym";
+            rev = "ea6cd15b9929494e05e0ffb37aedccf915717020";
+            fetchSubmodules = true;
+          };
+          libraryHaskellDepends = [
+            base binary bytestring case-insensitive proto-lens zlib
+          ];
+          libraryToolDepends = [ hpack ];
+          preConfigure = "hpack";
+          homepage = "https://github.com/lucasdicioccio/http2-grpc-types#readme";
+          description = "Types for gRPC over HTTP2 common for client and servers";
+          license = stdenv.lib.licenses.bsd3;
+        };
 
 in (super: {
-    grpc-etcd-client = super.callPackage grpc-etcd-client {};
+    http2-grpc-types = super.callPackage http2-grpc-types {};
+    servant                  = super.servant_0_16_0_1;
+    servant-server           = super.servant-server_0_16;
+    servant-client           = super.servant-client_0_16;
+    servant-client-core      = super.servant-client-core_0_16;
+    servant-blaze            = super.servant-blaze_0_9;
+    system-fileio = dontCheck super.system-fileio;
 })
