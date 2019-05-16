@@ -9,5 +9,5 @@ let
 in mapAttrs (name: value: doHaddock (doCoverage value))
 {
     inherit (nixpkgs.haskellPackages)
-        package2 package1;
+        hello-world universe;
 }

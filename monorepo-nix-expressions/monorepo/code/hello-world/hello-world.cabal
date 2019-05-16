@@ -1,19 +1,16 @@
 cabal-version: 1.12
 
-name:           package1
+name:           hello-world
 version:        0.1.0.0
 license:        AllRightsReserved
 build-type:     Simple
 
-executable package1-exe
+executable hello-world-exe
   main-is: Main.hs
   hs-source-dirs:
       exe
-  default-extensions: OverloadedStrings NoImplicitPrelude TypeOperators DataKinds DeriveGeneric
-  ghc-options: -Wall
   build-depends:
       aeson
     , base
-    , text
-    , package2
+    , universe
   default-language: Haskell2010
