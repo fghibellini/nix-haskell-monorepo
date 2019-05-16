@@ -186,7 +186,7 @@ You can also add the following to your `.gitlab-ci.yml` if you want to make sure
 ```
 nix-shell:
   stage: build-and-lint
-  image: fghibellini/nix
+  image: fghibellini/nix # https://github.com/fghibellini/nix-haskell-gitlab-runner
   allow_failure: true
   script:
     cd $CI_PROJECT_DIR/code && nix-shell --command 'cabal new-configure && cabal new-build all'
