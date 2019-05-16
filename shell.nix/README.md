@@ -1,10 +1,6 @@
 
 # shell.nix
 
-> # TODO
->
-> Reimplement using `<haskellPackge>.getBuildInputs.haskellBuildInputs`
-
 [The nix haskell tutorial](https://github.com/Gabriel439/haskell-nix/tree/master/project0#building-with-cabal) explains how to use Nix to provision a shell environment,
 in which you get all the tools required to build your package with Cabal.
 
@@ -69,6 +65,12 @@ What we would like though in our case, is a the environment for a __set__ of pac
 Upon some thinking you will realise that all the dependencies are listed in the arguments of the Nix expressions we generated for our Haskell packages.
 We could create a program that would go over the nix expressions in `packages`, parse the arguments and output the concatenated list of them into a dummy Haskell package Nix expression.
 This is exactly what I tried at first and [here](https://github.com/fghibellini/nix-scripts/tree/master/monorepo-gen-env) you can find the source for it.
+
+> # NOTE
+>
+> After the below described solution I realised it should be possible to implement the same,
+> but in a more reliable manner with less code by using `<haskellPackge>.getBuildInputs.haskellBuildInputs`.
+> I described this in a [separate file](./APPROACH2.md) as it currently doesn't seem to work properly.
 
 I then realised the expression can be generated dynamically by using the Nix builtin functions.
 We start off by creating the template for the expression:
