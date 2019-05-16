@@ -114,7 +114,7 @@ let
 in nixpkgs
 ```
 
-TODO insert diff with previous release.nix
+![diff of release.nix](./diff-release-nix.png)
 
 Sometimes `nixpkgs` will contain multiple versions of the same package. This is the case for example in our snapshot with the `servant` packages.
 Our haskell package set has a `servant_0_16_0_1` attribute. We can make this the default servant (as opposed to `servant-0.15` <sup>[1](#footnote-1)</sup>) by reassigning it in our transformation function:
