@@ -1,6 +1,11 @@
 
 # Hydra Project Config
 
+> POSSIBLE NIX IMPROVEMENT
+>
+> Ideally this whole chapter would not exist and the whole config could be specified as
+> configuration of the Hydra service in the NixOS `configuration.nix` file.
+
 ## Initial Hydra setup
 
 As root:
