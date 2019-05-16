@@ -5,7 +5,7 @@ if RES=$(nix-instantiate --json --eval -E '"${import ./pinned-nixpkgs.nix}"'); t
   echo "Path:"
   echo "$RES" | sed -r 's/"//g'
 else
-  echo "prefetche failure"
+  echo "prefetch failure"
   exit 1
 fi
 

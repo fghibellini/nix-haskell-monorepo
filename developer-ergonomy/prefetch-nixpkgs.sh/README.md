@@ -15,7 +15,7 @@ if RES=$(nix-instantiate --json --eval -E '"${import ./pinned-nixpkgs.nix}"'); t
   echo "Path:"
   echo "$RES" | sed -r 's/"//g'
 else
-  echo "prefetche failure"
+  echo "prefetch failure"
   exit 1
 fi
 ```
@@ -27,7 +27,7 @@ The user will then have to run 2 commands:
 nix-shell
 ```
 
-But now it runs the first one with a clear expectation of wait-time. While the `nix-shell` invocation will pickup the shell build process stright away as
+But now it runs the first one with a clear expectation of wait-time. While the `nix-shell` invocation will pickup the shell build process straight away as
 the result of the above checkout is cached in the store.
 
 > POSSIBLE NIX IMPROVEMENT

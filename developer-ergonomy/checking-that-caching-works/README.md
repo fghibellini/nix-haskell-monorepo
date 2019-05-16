@@ -22,7 +22,7 @@ TODO add example output
 > My only solution was to start a Docker image with the project mounted and then running the above command such that I knew the machine's store was completely empty.
 >
 > ```
-> docker run -it --rm -v $(readlink -f .):/monorepo -v $(readlink -f ~/.ssh):/root/.ssh fghibellini/nix:tar nix-build --dry-run /monorepo/nix/monorepo.nix
+> docker run -it --rm -v $(readlink -f .):/monorepo -v $(readlink -f ~/.ssh):/root/.ssh fghibellini/nix nix-build --dry-run /monorepo/nix/monorepo.nix
 > ```
 
 ## Nix cache debugging

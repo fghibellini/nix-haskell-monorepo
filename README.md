@@ -19,7 +19,6 @@ I absolutely recommend reading first [Gabriel's tutorial](https://github.com/Gab
     1. [checking that caching works](./developer-ergonomy/checking-that-caching-works)
     2. [prefetch-nixpkgs.sh](./developer-ergonomy/prefetch-nixpkgs.sh)
     3. making sure Cabal, Stack and Nix use the same versions
-11. major drawbacks & possible improvements
 
 # Why?
 
