@@ -36,4 +36,11 @@ the result of the above checkout is cached in the store.
 > resolve calls like the one above by simply first performing a fetch thus making sure all the new commits are present and then cloning
 > into the store from it. This can be completely transparent to the user.
 
+> NOTE
+>
+> In https://youtu.be/J4DgATIjx9E?t=1539 it is suggested to use `fetchTarball` instead of `fetchGit`
+> as the download of the git repo represents roughly 600MB of data vs. 12MB of the tarball.
+>
+> This is unfortunately  not possible since `fetchTarball` is not available in restricted evaluation mode.
+
 This concludes the tutorial (for now), I hope you found it helpful!
