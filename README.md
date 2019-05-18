@@ -6,6 +6,9 @@ This is still experimental and any feedback is very welcome. If you find it hard
 
 I absolutely recommend reading first [Gabriel's tutorial](https://github.com/Gabriel439/haskell-nix) on how to use Nix with Haskell in general.
 
+Even though you end up with a project that can be fully built with Nix, [chapter 5. shell.nix](./shell.nix) describes how you can use Nix to only
+provision your dependencies and use only Cabal and its `v2-` multi-package API to manage your build during development completely transparently.
+
 1. [pinned nixpkgs](./pinned-nixpkgs)
 2. [monorepo nix expressions](./monorepo-nix-expressions)
 3. [extra deps](./extra-deps)
