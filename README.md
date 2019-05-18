@@ -21,7 +21,8 @@ provision your dependencies and use only Cabal and its `v2-` multi-package API t
 10. [developer ergonomy](./developer-ergonomy)
     1. [checking that caching works](./developer-ergonomy/checking-that-caching-works)
     2. [prefetch-nixpkgs.sh](./developer-ergonomy/prefetch-nixpkgs.sh)
-    3. making sure Cabal, Stack and Nix use the same versions
+    3. [IDEs](./developer-ergonomy/ides)
+    4. making sure Cabal, Stack and Nix use the same versions
 
 # Why?
 
