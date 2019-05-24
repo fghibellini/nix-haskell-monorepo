@@ -101,14 +101,14 @@ We then need to modify the `release.nix` file to fix the native libs:
 ```nix
 ...
   system-deps = import ./system-deps.nix;
-  monorepo-pkgs = import ./packages.nix;
+  extra-deps = import ./extra-deps.nix;
 
   config = {
     allowUnfree = true;
     packageOverrides = pkgs: rec {
       inherit (system-deps { inherit pkgs; }) freetds unixODBC; # OVERRIDEN HERE
-      haskellPackages = pkgs.haskellPackages.override {
-        overrides = self: super: (extra-deps super) // (builtins.mapAttrs (name: value: super.callPackage value {}) monorepo-pkgs);
+      haskellPackages = pkgs.haskell.packages.ghc864.override {
+        overrides = self: super: ((extra-deps super) // builtins.mapAttrs (name: path: super.callCabal2nix name (gitignore path) {}) (import ./packages.nix));
       };
     };
   };
