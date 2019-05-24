@@ -93,19 +93,23 @@ let
 
   nixpkgs = import (import ./pinned-nixpkgs.nix) { inherit config; };
 
-  monorepo-pkgs = import ./packages.nix;
+  gitignore = nixpkgs.nix-gitignore.gitignoreSourcePure [ ../.gitignore ];
   extra-deps = import ./extra-deps.nix;
 
   config = {
     allowUnfree = true;
     packageOverrides = pkgs: rec {
-      haskellPackages = pkgs.haskell.packages.ghc844.override {
-        overrides = self: super: (extra-deps super) // (builtins.mapAttrs (name: value: super.callPackage value {}) monorepo-pkgs);
+      haskellPackages = pkgs.haskell.packages.ghc864.override {
+        overrides = self: super: ((extra-deps super) // builtins.mapAttrs (name: path: super.callCabal2nix name (gitignore path) {}) (import ./packages.nix));
       };
     };
   };
 
 in nixpkgs
+```
+
+```bash
+diff -u monorepo-nix-expressions/monorepo/nix/release.nix extra-deps/monorepo/nix/release.nix | ydiff
 ```
 
 ![diff of release.nix](./diff-release-nix.png)
@@ -183,4 +187,4 @@ in (super: {
 
 In the [next chapter](../system-deps) we will se how to add system dependencies to our packages.
 
-<a id="footnote-1"><b>[1]</b></a> `nix-instantiate --eval -E '(import (import ./pinned-nixpkgs.nix) {}).haskell.packages.ghc844.servant.version'` evaluates to `"0.15"`
+<a id="footnote-1"><b>[1]</b></a> `nix-instantiate --eval -E '(import (import ./pinned-nixpkgs.nix) {}).haskell.packages.ghc864.servant.version'` evaluates to `"0.15"`

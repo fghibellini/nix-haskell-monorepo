@@ -1,0 +1,17 @@
+cabal-version: 1.12
+
+name:           universe
+version:        0.2.0.0
+license:        AllRightsReserved
+build-type:     Simple
+
+library
+  exposed-modules:
+      Universe.World
+  hs-source-dirs:
+      src
+  build-depends:
+      aeson
+    , base
+    , text
+  default-language: Haskell2010
