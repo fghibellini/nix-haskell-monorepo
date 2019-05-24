@@ -78,6 +78,23 @@ In practice you would have a structure similar to the following:
 
 ![adding a jobset](./add-jobset.png)
 
+This is the `hydra.nix` file used in the above jobset definition:
+
+```nix
+# monorepo/nix/hydra.nix
+let
+
+    nixpkgs = import ./release.nix;
+    monorepo-pkgs = import ./monorepo.nix;
+
+    doHaddock = nixpkgs.haskell.lib.doHaddock;
+    doCoverage = nixpkgs.haskell.lib.doCoverage;
+    mapAttrs = nixpkgs.lib.mapAttrs;
+
+in
+
+    mapAttrs (name: value: doHaddock (doCoverage value)) monorepo-pkgs
+```
 
 ## Evaluation mode
 
