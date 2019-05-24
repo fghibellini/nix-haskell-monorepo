@@ -6,7 +6,7 @@ let
     # the keys are the names of the packages.
     # hidden folders and blacklisted folders will be skipped
     findHaskellPackages = root:
-        let items = builtins.readDir (builtins.trace root root);
+        let items = builtins.readDir root;
             fn = file: type:
                 if type == "directory" && isNull (builtins.match "\\..*" file) && !(builtins.elem file ["dist" "dist-new"]) then (findHaskellPackages (root + (/. + file)))
                 else (if type == "regular" then (let m = (builtins.match "(.*)\\.cabal" file); in if !(isNull m) then { "${builtins.elemAt m 0}" = root; } else {})
