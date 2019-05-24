@@ -1,11 +1,8 @@
 let
-  nixpkgs = import ./release.nix;
-  all-deps = (nixpkgs.callPackage ./lib/compute-monorepo-deps.nix {}) ./packages;
+    nixpkgs = import ./release.nix;
+    packages = import ./packages.nix;
+
+    mapAttrs = nixpkgs.lib.mapAttrs;
+
 in
-  nixpkgs.haskellPackages.mkDerivation {
-    pname = "monorepo";
-    version = "1.0.0";
-    src = null;
-    libraryHaskellDepends = map (pkgName: builtins.getAttr pkgName nixpkgs.haskellPackages) all-deps;
-    license = nixpkgs.stdenv.lib.licenses.unfree;
-  }
+    mapAttrs (name: path: builtins.getAttr name nixpkgs.haskellPackages) packages
