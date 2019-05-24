@@ -25,11 +25,11 @@ let
         };
 
 in (super: {
-    http2-grpc-types = super.callPackage http2-grpc-types {};
-    servant                  = super.servant_0_16_0_1;
-    servant-server           = super.servant-server_0_16;
-    servant-client           = super.servant-client_0_16;
-    servant-client-core      = super.servant-client-core_0_16;
-    servant-blaze            = super.servant-blaze_0_9;
-    system-fileio = dontCheck super.system-fileio;
+    http2-grpc-types    = super.callPackage http2-grpc-types {};
+    servant             = super.servant_0_16_0_1;
+    servant-server      = super.servant-server_0_16;
+    servant-client      = super.servant-client_0_16;
+    servant-client-core = super.servant-client-core_0_16;
+    servant-blaze       = super.servant-blaze_0_9;
+    system-fileio       = dontCheck super.system-fileio;
 })
