@@ -1,12 +1,6 @@
 let
 
-    nix-markdown-snippets-overlay = import (builtins.fetchGit {
-      url = "https://github.com/fghibellini/nix-markdown-snippets.git";
-      ref = "master";
-      rev = "94697784cea3f657718da174e081da70066429ea";
-    });
-
-    nixpkgs = import <nixpkgs> { overlays = [ nix-markdown-snippets-overlay ]; };
+    nixpkgs = import <nixpkgs> { overlays = import ./overlays; };
 
     post-number = nixpkgs.extract-snippet { pattern = "curl"; path = ../docs/QUICKSTART.md; };
 
