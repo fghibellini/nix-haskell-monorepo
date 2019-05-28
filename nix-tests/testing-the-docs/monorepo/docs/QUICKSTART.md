@@ -4,8 +4,8 @@
 Welcome to our project
 
 ```
-curl -XPOST http://localhost:1234/postNumber -d@- <<EOF
-{ "n": 42 }
+curl -XPOST http://localhost:3000/postOrder -d@- <<EOF
+{ "cartId": "$(uuidgen)" }
 EOF
 ```
 

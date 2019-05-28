@@ -1,24 +1,37 @@
 let
 
-    nixpkgs = import <nixpkgs> { overlays = import ./overlays; };
+    nixpkgs = import <nixpkgs> {
+        overlays = import ./overlays;
+        config = {
+            packageOverrides = pkgs: {
+                haskellPackages = pkgs.haskellPackages.override {
+                    overrides = self: super: {
+                        order-processor = super.callCabal2nix "order-processor" ../code/order-processor {};
+                    };
+                };
+            };
+        };
+    };
 
-    post-number = nixpkgs.extract-snippet { pattern = "curl"; path = ../docs/QUICKSTART.md; };
+    make-test = import <nixpkgs/nixos/tests/make-test.nix>;
+
+    post-order = nixpkgs.fcbScript { pattern = "curl"; path = ../docs/QUICKSTART.md; };
 
 in
 
     make-test {
 
-      nodes = { machine = { config, pkgs, ... }: { environment.systemPackages = [ release.haskellPackages.enode ]; }; };
+      nodes = { machine = { config, pkgs, ... }: { environment.systemPackages = [ nixpkgs.haskellPackages.order-processor ]; }; };
 
       testScript =
         ''
           startAll;
           $machine->waitForUnit("network.target");
-          $machine->succeed("package1-exe &");
+          $machine->succeed("order-processor-exe &");
 
           # create the order
-          $machine->waitUntilSucceeds("${post-number}");
-          $machine->waitUntilSucceeds("[[ $(curl http://localhost:9000/getOrderCount) -eq 1 ]]");
+          $machine->waitUntilSucceeds("${post-order}");
+          $machine->waitUntilSucceeds("[[ $(curl http://localhost:3000/orderCount) -eq 1 ]]");
         '';
 
     }
