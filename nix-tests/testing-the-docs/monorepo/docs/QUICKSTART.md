@@ -9,4 +9,4 @@ curl -XPOST http://localhost:3000/postOrder -d@- <<EOF
 EOF
 ```
 
-and that's how you do it.
+this request will persist an order in our system.

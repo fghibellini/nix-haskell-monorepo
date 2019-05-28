@@ -1,54 +1,62 @@
 
 # Testing the Docs
 
+`docs/QUICKSTART.md`:
 
 ````markdown
-Welcome to project "destroy_the_world".
+# Hello
 
-Step 1 - send order:
+Welcome to our project
+
 ```
-curl -XPOST http://10.0.0.1:3920/persistOrder -H 'Content-type: application/json' -d@ <<EOF
-{
-  "cartId": "$(uuid-gen)",
-  "date": "$(date ...)"
-}
+curl -XPOST http://localhost:3000/postOrder -d@- <<EOF
+{ "cartId": "$(uuidgen)" }
 EOF
 ```
 
-Step 2 - read order:
-```
-curl http://10.0.0.1:3920/readOrders/<order_id>
-```
+and that's how you do it.
 ````
+
+`nix/test-quickstart.nix`:
 
 ```nix
 let
 
-    release = import ../release.nix;
-    inherit (import ../lib/utils.nix) make-test extract-snippet;
+    nixpkgs = import <nixpkgs> {
+        overlays = import ./overlays;
+        config = {
+            packageOverrides = pkgs: {
+                haskellPackages = pkgs.haskellPackages.override {
+                    overrides = self: super: {
+                        order-processor = super.callCabal2nix "order-processor" ../code/order-processor {};
+                    };
+                };
+            };
+        };
+    };
 
-    # this is a bash script extracted from QUICKSTART.md
-    send-random-order = extract-snippet { pattern = "curl.*-XPOST"; path = ../docs/QUICKSTART.md; filter = '' sed 's/10\.0\.0\.1:3920/localhost:9000/' ''; };
+    make-test = import <nixpkgs/nixos/tests/make-test.nix>;
+
+    post-order = nixpkgs.fcbScript { pattern = "curl"; path = ../docs/QUICKSTART.md; };
 
 in
 
     make-test {
 
-      nodes = { machine = { config, pkgs, ... }: { environment.systemPackages = [ release.haskellPackages.enode ]; }; };
+      nodes = { machine = { config, pkgs, ... }: { environment.systemPackages = [ nixpkgs.haskellPackages.order-processor ]; }; };
 
       testScript =
         ''
           startAll;
           $machine->waitForUnit("network.target");
-          $machine->succeed("package1-exe &");
+          $machine->succeed("order-processor-exe &");
 
           # create the order
-          $machine->waitUntilSucceeds("${send-random-order}");
-          $machine->waitUntilSucceeds("[[ $(curl http://localhost:9000/getOrderCount) -eq 1 ]]");
+          $machine->waitUntilSucceeds("${post-order}");
+          $machine->waitUntilSucceeds("[[ $(curl http://localhost:3000/orderCount) -eq 1 ]]");
         '';
 
     }
-
 ```
 
 In the [next chapter](../docker) we will use Nix to automatically generate docker images for all our packages.
