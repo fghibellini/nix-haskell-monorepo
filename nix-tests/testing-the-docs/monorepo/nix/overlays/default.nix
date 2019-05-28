@@ -1,3 +1,3 @@
 [
-    import ./nix-markdown-snippets.nix
+    (import ./nix-markdown-snippets.nix)
 ]

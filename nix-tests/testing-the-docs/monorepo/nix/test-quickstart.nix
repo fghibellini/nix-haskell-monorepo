@@ -1,6 +1,6 @@
 let
 
-    nixpkgs = import <nixpkgs> {
+    nixpkgs = import (import ./pinned-nixpkgs.nix) {
         overlays = import ./overlays;
         config = {
             packageOverrides = pkgs: {
@@ -15,7 +15,7 @@ let
 
     make-test = import <nixpkgs/nixos/tests/make-test.nix>;
 
-    post-order = nixpkgs.fcbScript { pattern = "curl"; path = ../docs/QUICKSTART.md; };
+    post-order = nixpkgs.fcbScript "post-order" { pattern = "curl"; path = ../docs/QUICKSTART.md; };
 
 in
 
