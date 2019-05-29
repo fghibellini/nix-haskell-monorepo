@@ -31,7 +31,7 @@ in
 
           # create the order
           $machine->waitUntilSucceeds("${post-order}");
-          $machine->waitUntilSucceeds("[[ $(curl http://localhost:3000/orderCount) -eq 1 ]]");
+          $machine->succeed('[[ "$(curl -f http://localhost:3000/orderCount)" == "1" ]]');
         '';
 
     }

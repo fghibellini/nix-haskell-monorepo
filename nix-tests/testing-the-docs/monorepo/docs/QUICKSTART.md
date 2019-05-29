@@ -4,7 +4,7 @@
 Welcome to our project
 
 ```
-curl -XPOST http://localhost:3000/postOrder -d@- <<EOF
+curl -f -XPOST http://localhost:3000/postOrder -H 'Content-type: application/json' -d@- <<EOF
 { "cartId": "$(uuidgen)" }
 EOF
 ```
