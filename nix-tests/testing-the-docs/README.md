@@ -1,6 +1,10 @@
 
 # Testing the Docs
 
+> NOTE
+>
+> This requires you to add "https://github.com/fghibellini/nix-markdown-snippets.git" to your `allowed-uris` option if you run your evaluation in restricted mode (e.g. in hydra).
+
 `docs/QUICKSTART.md`:
 
 ````markdown
@@ -9,12 +13,12 @@
 Welcome to our project
 
 ```
-curl -XPOST http://localhost:3000/postOrder -d@- <<EOF
+curl -f -XPOST http://localhost:3000/postOrder -H 'Content-type: application/json' -d@- <<EOF
 { "cartId": "$(uuidgen)" }
 EOF
 ```
 
-and that's how you do it.
+this request will persist an order in our system.
 ````
 
 `nix/test-quickstart.nix`:
@@ -22,7 +26,7 @@ and that's how you do it.
 ```nix
 let
 
-    nixpkgs = import <nixpkgs> {
+    nixpkgs = import (import ./pinned-nixpkgs.nix) {
         overlays = import ./overlays;
         config = {
             packageOverrides = pkgs: {
@@ -37,7 +41,7 @@ let
 
     make-test = import <nixpkgs/nixos/tests/make-test.nix>;
 
-    post-order = nixpkgs.fcbScript { pattern = "curl"; path = ../docs/QUICKSTART.md; };
+    post-order = nixpkgs.fcbScript "post-order" { pattern = "curl"; path = ../docs/QUICKSTART.md; };
 
 in
 
@@ -53,7 +57,7 @@ in
 
           # create the order
           $machine->waitUntilSucceeds("${post-order}");
-          $machine->waitUntilSucceeds("[[ $(curl http://localhost:3000/orderCount) -eq 1 ]]");
+          $machine->succeed('[[ "$(curl -f http://localhost:3000/orderCount)" == "1" ]]');
         '';
 
     }
