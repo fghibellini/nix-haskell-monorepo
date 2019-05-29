@@ -1,7 +1,8 @@
 
 # Generating tests
 
-If we create a file listing our executables and the packages they reside in, we can map over them and generate a test-case for each.
+If we create a file listing our executables and the packages they reside in, we can map over them and generate a test-case for each of them.
+
 To achieve this we will use the following helper function:
 
 ```nix
@@ -44,28 +45,21 @@ in
 
     mapExecutables (pkg: executable: make-test {
 
-      nodes =
-          { machine = { config, pkgs, ... }: { environment.systemPackages = [ pkg ]; };
-            etcdServer = { config, pkgs, ... }: { services.etcd.enable = true; services.etcd.listenClientUrls = [ "http://0.0.0.0:2379" ]; networking.firewall.allowedTCPPorts = [ 2379 ]; };
-          };
+      nodes = { machine = { ... }: { environment.systemPackages = [ pkg ]; }; };
 
       testScript =
         ''
-          startAll;
-          $machine->waitForUnit("network.target");
-          $etcdServer->waitForUnit("etcd.service");
+          $machine->start;
+          $machine->waitForUnit("default.target");
 
-          # start the service
-          $machine->succeed("${executable} --etcd-endpoint=http://etcdServer:2379 --order-store-host localhost --public-host localhost --public-port 2323 &");
-
-          # assert that the service registered into etcd
-          $etcdServer->waitUntilSucceeds("ETCDCTL_API=3 etcdctl get --prefix ''' | grep enode"); # or die;
+	  # check that invoking the executable with the `--help` flag is supported
+          $machine->succeed("${executable} --help");
         '';
 
-    })
+    )}
 ```
 
 This will generate 3 test cases. The more parametric we make our test specification the more tests we will be able to generate.
 
-[Next](../testing-the-docs) we will se how we can use Nix to include snippets of code from our docs into our tests.
+In the [next](../multiple-machines) chapter we will see how to write integration tests that span multiple machines.
 

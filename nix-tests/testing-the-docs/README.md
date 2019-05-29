@@ -7,6 +7,14 @@
 
 `docs/QUICKSTART.md`:
 
+An often praised feature of Nix is that it allows you to seamlessly combine projects written in different programming languages.
+What we don't emphasize enough, is that this also means that you can include even your markdown documents in your build process.
+Here I show how you can use Nix to extract code snippets from your Markdown documentation and use it in your tests.
+
+It is very valuable to have example calls in your documentation that show newcommers how to use your project.
+Unfortunately remembering to keep the documentation up to date is very hard. Integrating your documentation in the CI process can
+guarantee that your example code will always work.
+
 ````markdown
 # Hello
 
@@ -63,4 +71,10 @@ in
     }
 ```
 
-In the [next chapter](../docker) we will use Nix to automatically generate docker images for all our packages.
+Should `order-processor` change the format of its input and the docs were not updated, the CI will immediately
+start complaining as the extracted curl request will fail.
+
+See [nix-markdown-snippets](https://github.com/fghibellini/nix-markdown-snippets) for all the features of `fcbScript`.
+
+In the [next chapter](../../docker) we will use Nix to automatically generate docker images for all our packages.
+
